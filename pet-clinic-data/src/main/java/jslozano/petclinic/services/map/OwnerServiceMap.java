@@ -1,10 +1,11 @@
 package jslozano.petclinic.services.map;
 
 import jslozano.petclinic.model.Owner;
-import jslozano.petclinic.services.CrudService;
+import jslozano.petclinic.services.OwnerService;
+
 import java.util.Set;
 
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements CrudService<Owner, Long> {
+public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
     @Override
     public Set<Owner> findAll() {
         return super.findAll(); // this makes reference of the inherited methods of AbstractMapService
@@ -28,5 +29,10 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
     @Override
     public void deleteById(Long id) {
         super.deleteById(id);
+    }
+
+    @Override
+    public Owner findByLastName(String lastName) {
+        return null;
     }
 }

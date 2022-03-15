@@ -1,11 +1,11 @@
 package jslozano.petclinic.services.map;
 
 import jslozano.petclinic.model.Vet;
-import jslozano.petclinic.services.CrudService;
+import jslozano.petclinic.services.VetService;
 
 import java.util.Set;
 
-public class VetServiceMap extends AbstractMapService<Vet, Long> implements CrudService<Vet, Long> {
+public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
     @Override
     public Set<Vet> findAll() {
         return super.findAll();
