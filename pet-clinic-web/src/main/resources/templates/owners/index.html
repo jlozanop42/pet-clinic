@@ -5,7 +5,25 @@
     <title>List of Pet Owners</title>
 </head>
 <body>
-    <h1 th:text="'List of Owners'">Owners List</h1>
-
+<h1 th:text="'List of Owners'">Owners List</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="owner : ${owners}">
+            <td th:text="${owner.id}" >1</td>
+            <td th:text="${owner.firstName}">Joe</td>
+            <td th:text="${ownerx.lastName}">Buck</td>
+        </tr>
+    </tbody>
+</table>
+    <!-- The name in the th:each = "owner" ${owners} must be the same in the controller who is adding the
+    property in the model. Owner is the iterator moving through all the elements in the set
+    th:each IS A ITERATOR, it's going to create a row for each owner in owners!-->
 </body>
 </html>
