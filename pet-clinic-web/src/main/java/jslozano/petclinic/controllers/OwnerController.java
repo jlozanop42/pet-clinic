@@ -18,15 +18,12 @@ public class OwnerController {
     @RequestMapping({"","/", "/index", "/index.html"})
     public String listOwners(Model model){
         model.addAttribute("owners", ownerService.findAll());
+        return "owners/index";
         /*
         Owners is the name of the property inside the model. Attribute means the normal one in POO
         OwnerService.findAll() give us a set to iterate over it
         Spring MVC is going to inject the model into the method
          */
-
-
-
-        return "owners/index";
     }
 
 
