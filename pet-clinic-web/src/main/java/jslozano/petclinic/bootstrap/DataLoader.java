@@ -1,11 +1,9 @@
 package jslozano.petclinic.bootstrap;
 
-import jslozano.petclinic.model.Owner;
-import jslozano.petclinic.model.Pet;
-import jslozano.petclinic.model.PetType;
-import jslozano.petclinic.model.Vet;
+import jslozano.petclinic.model.*;
 import jslozano.petclinic.services.OwnerService;
 import jslozano.petclinic.services.PetTypeService;
+import jslozano.petclinic.services.SpecialityService;
 import jslozano.petclinic.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -17,24 +15,50 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
+    private final SpecialityService specialityService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService,
+                      SpecialityService specialityService) {
 
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
+        this.specialityService = specialityService;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        PetType dog = new PetType();
+        int count = petTypeService.findAll().size();
+        if(count == 0){
+            loadData();
+        }
+    }
+
+    private void loadData() {
+    /*
+    We are using the savedObject because when the object is persisted into the database the id value
+    is generated, before the object does not have the id property.
+     */
+        PetType dog = new PetType(); // this object does not have the id
         dog.setName("Dog");
-        PetType savedDogType = petTypeService.save(dog);
+        PetType savedDogType = petTypeService.save(dog); // This object has the id property
 
         PetType cat = new PetType();
         cat.setName("Cat");
         PetType savedCatType = petTypeService.save(cat);
-        
+
+        Speciality radiology = new Speciality();
+        radiology.setDescription("Radiology");
+        Speciality savedRadiology = specialityService.save(radiology);
+
+        Speciality surgery = new Speciality();
+        surgery.setDescription("Surgery");
+        Speciality savedSurgery = specialityService.save(surgery);
+
+        Speciality dentistry = new Speciality();
+        dentistry.setDescription("Dentistry");
+        Speciality savedDentistry = specialityService.save(dentistry);
+
 
         Owner owner1 = new Owner();
         owner1.setFirstName("Michael");
@@ -72,6 +96,7 @@ public class DataLoader implements CommandLineRunner {
         Vet vet1 = new Vet();
         vet1.setFirstName("Sam");
         vet1.setLastName("Axe");
+        vet1.getSpecialities().add(savedRadiology);
 
         vetService.save(vet1);
 
@@ -79,6 +104,7 @@ public class DataLoader implements CommandLineRunner {
         vet2.setId(2L);
         vet2.setFirstName("Jessie");
         vet2.setLastName("Porter");
+        vet2.getSpecialities().add(savedSurgery);
 
         vetService.save(vet2);
 
