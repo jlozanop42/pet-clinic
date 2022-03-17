@@ -25,6 +25,8 @@ public class OwnerController {
         Spring MVC is going to inject the model into the method
          */
     }
-
-
+    @RequestMapping("/find")
+    public String findOwners(){
+        return "notImplemented";
+    }
 }

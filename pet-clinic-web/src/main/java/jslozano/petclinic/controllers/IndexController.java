@@ -16,4 +16,8 @@ public class IndexController {
     root context (localhost:8080) or root slash (localhost:8080/) or the same with index or index.html
     thymeleaf gets in action.
      */
+    @RequestMapping("/oups")
+    public String errorHandler(){
+        return "notImplemented";
+    }
 }
